@@ -1,4 +1,4 @@
-# Adonis API application
+# Uma aplicação ADONIS para o cadastramento, compra e venda de produtos.
 
 This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
 
