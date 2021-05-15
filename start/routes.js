@@ -22,4 +22,12 @@ Route.get('/', () => {
 
 
 Route.resource('/fornecedores', 'FornecedorController').apiOnly()
+Route.resource('/marcas', 'MarcaController').apiOnly()
+Route.resource('/unidadesMedida', 'UnidadeMedidaController').apiOnly()
 Route.resource('/setores', 'SetorController').apiOnly()
+Route.resource('/vendas', 'VendaController').apiOnly()
+Route.resource('/marcasFornecedor', 'MarcasFornecedorController').apiOnly()
+Route.resource('/categorias', 'CategoriaController').apiOnly()
+Route.resource('/produtos', 'ProdutoController').apiOnly()
+Route.resource('/compras', 'CompraController').apiOnly()
+Route.resource('/produtosVenda', 'ProdutosVendaController').apiOnly()
