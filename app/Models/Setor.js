@@ -5,6 +5,10 @@ const Model = use('Model')
 
 class Setor extends Model {
 
+    static getCamposSetor(){
+        return ['nome']
+    }
+
     static get table(){
         return 'setores'
     }

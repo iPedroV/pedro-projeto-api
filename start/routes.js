@@ -22,3 +22,4 @@ Route.get('/', () => {
 
 
 Route.resource('/fornecedores', 'FornecedorController').apiOnly()
+Route.resource('/setores', 'SetorController').apiOnly()
