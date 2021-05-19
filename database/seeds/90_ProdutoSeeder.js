@@ -29,8 +29,8 @@ class ProdutoSeeder {
       preco: 20,
       categoria_id: 2,
       marca_id: 1,
-      unidade_medida_bruto_id: 3,
-      unidade_medida_liquido_id: 3} 
+      unidade_medida_id: 3
+      } 
     ])
   }
 }

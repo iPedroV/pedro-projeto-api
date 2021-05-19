@@ -7,6 +7,10 @@
 /**
  * Resourceful controller for interacting with categorias
  */
+
+const { getCamposCategoria } = require("../../Models/Categoria")
+const Categoria = use('App/Models/Categoria')
+
 class CategoriaController {
   /**
    * Show a list of all categorias.
@@ -17,7 +21,11 @@ class CategoriaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
+    //const {page, perPage} = request.all()
+    //return Categoria.query().paginate(page, perPage)
+
+    return Categoria.all()
   }
 
   /**
@@ -29,7 +37,7 @@ class CategoriaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({ request, response, view }) {
   }
 
   /**
@@ -40,7 +48,10 @@ class CategoriaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({ request, response }) {
+    const campos = getCamposCategoria()
+    const categoria = request.only(campos)
+    return await Categoria.create(categoria);
   }
 
   /**
@@ -52,7 +63,10 @@ class CategoriaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
+    //return await Categoria.findOrFail(params.id)
+
+    return await Categoria.query().with('setor').where('id', params.id).first()
   }
 
   /**
@@ -64,7 +78,7 @@ class CategoriaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit({ params, request, response, view }) {
   }
 
   /**
@@ -75,7 +89,14 @@ class CategoriaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
+    const categoria = await Categoria.findOrFail(params.id)
+    const data = request.only(getCamposCategoria())
+
+    categoria.merge(data)
+    await categoria.save()
+
+    return categoria;
   }
 
   /**
@@ -86,7 +107,9 @@ class CategoriaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
+    const categoria = await Categoria.findOrFail(params.id)
+    return await categoria.delete();
   }
 }
 

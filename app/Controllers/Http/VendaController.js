@@ -5,88 +5,111 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 /**
- * Resourceful controller for interacting with vendas
+ * Resourceful controller for interacting with setors
  */
+
+const { getCamposVenda } = require("../../Models/Venda")
+const Venda = use('App/Models/Venda')
+
 class VendaController {
   /**
-   * Show a list of all vendas.
-   * GET vendas
+   * Show a list of all setors.
+   * GET setors
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
+    //const {page, perPage} = request.all()
+    //return Venda.query().paginate(page, perPage)
+
+    return Venda.all()
   }
 
   /**
-   * Render a form to be used for creating a new venda.
-   * GET vendas/create
+   * Render a form to be used for creating a new setor.
+   * GET setors/create
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({ request, response, view }) {
   }
 
   /**
-   * Create/save a new venda.
-   * POST vendas
+   * Create/save a new setor.
+   * POST setors
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({ request, response }) {
+    const campos = getCamposVenda()
+    const setor = request.only(campos)
+    return await Venda.create(setor);
   }
 
   /**
-   * Display a single venda.
-   * GET vendas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show ({ params, request, response, view }) {
-  }
-
-  /**
-   * Render a form to update an existing venda.
-   * GET vendas/:id/edit
+   * Display a single setor.
+   * GET setors/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
+    //return await Venda.findOrFail(params.id)
+
+    return await Venda.query().with('produtos').where('id', params.id).first()
   }
 
   /**
-   * Update venda details.
-   * PUT or PATCH vendas/:id
+   * Render a form to update an existing setor.
+   * GET setors/:id/edit
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async edit({ params, request, response, view }) {
+  }
+
+  /**
+   * Update setor details.
+   * PUT or PATCH setors/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
+    const setor = await Venda.findOrFail(params.id)
+    const data = request.only(getCamposVenda())
+
+    setor.merge(data)
+    await setor.save()
+
+    return setor;
   }
 
   /**
-   * Delete a venda with id.
-   * DELETE vendas/:id
+   * Delete a setor with id.
+   * DELETE setors/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
+    const setor = await Venda.findOrFail(params.id)
+    return await setor.delete();
   }
 }
 

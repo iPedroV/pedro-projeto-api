@@ -7,6 +7,10 @@
 /**
  * Resourceful controller for interacting with produtos
  */
+
+const { getCamposProduto } = require("../../Models/Produto")
+const Produto = use('App/Models/Produto')
+
 class ProdutoController {
   /**
    * Show a list of all produtos.
@@ -17,7 +21,11 @@ class ProdutoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
+    const {page, perPage} = request.all()
+    return Produto.query().paginate(page, perPage)
+
+    //return Produto.all()
   }
 
   /**
@@ -29,7 +37,7 @@ class ProdutoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({ request, response, view }) {
   }
 
   /**
@@ -40,7 +48,10 @@ class ProdutoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({ request, response }) {
+    const campos = getCamposProduto()
+    const produto = request.only(campos)
+    return await Produto.create(produto);
   }
 
   /**
@@ -52,7 +63,17 @@ class ProdutoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
+    //return await Produto.findOrFail(params.id)
+
+    return await Produto.query()
+        .with('unidadeMedida')
+        .with('categoria')
+        .with('marca')
+        .with('compras')
+        .with('vendas')
+        .where('id', params.id)
+        .first()
   }
 
   /**
@@ -64,7 +85,7 @@ class ProdutoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit({ params, request, response, view }) {
   }
 
   /**
@@ -75,7 +96,14 @@ class ProdutoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
+    const produto = await Produto.findOrFail(params.id)
+    const data = request.only(getCamposProduto())
+
+    produto.merge(data)
+    await produto.save()
+
+    return produto;
   }
 
   /**
@@ -86,7 +114,9 @@ class ProdutoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
+    const produto = await Produto.findOrFail(params.id)
+    return await produto.delete();
   }
 }
 

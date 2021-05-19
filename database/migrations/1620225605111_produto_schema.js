@@ -19,8 +19,7 @@ class ProdutoSchema extends Schema {
       table.decimal('preco').notNullable()
       table.integer('categoria_id').references('id').inTable('categorias').unsigned().notNullable()
       table.integer('marca_id').references('id').inTable('marcas').unsigned().notNullable()
-      table.integer('unidade_medida_bruto_id').references('id').inTable('unidades_medidas').unsigned().notNullable()
-      table.integer('unidade_medida_liquido_id').references('id').inTable('unidades_medidas').unsigned()
+      table.integer('unidade_medida_id').references('id').inTable('unidades_medidas').unsigned().notNullable()
       table.timestamps()
     })
   }

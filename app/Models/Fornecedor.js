@@ -12,6 +12,14 @@ class Fornecedor extends Model {
     static get table(){
         return 'fornecedores'
     }
+
+    compras(){
+        return this.hasMany('App/Models/Compra')
+    }
+
+    marcas(){
+        return this.belongsToMany('App/Models/Marca').pivotTable('marcas_fornecedores')
+    }
 }
 
 module.exports = Fornecedor

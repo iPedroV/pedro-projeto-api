@@ -64,7 +64,9 @@ class SetorController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
-    return await Setor.findOrFail(params.id)
+    //return await Setor.findOrFail(params.id)
+
+    return await Setor.query().with('categorias').where('id', params.id).first()
   }
 
   /**

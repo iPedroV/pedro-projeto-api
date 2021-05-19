@@ -7,6 +7,10 @@
 /**
  * Resourceful controller for interacting with marcas
  */
+
+const { getCamposMarca } = require("../../Models/Marca")
+const Marca = use('App/Models/Marca')
+
 class MarcaController {
   /**
    * Show a list of all marcas.
@@ -17,7 +21,11 @@ class MarcaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
+    //const {page, perPage} = request.all()
+    //return Marca.query().paginate(page, perPage)
+
+    return Marca.all()
   }
 
   /**
@@ -29,7 +37,7 @@ class MarcaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({ request, response, view }) {
   }
 
   /**
@@ -40,7 +48,10 @@ class MarcaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({ request, response }) {
+    const campos = getCamposMarca()
+    const marca = request.only(campos)
+    return await Marca.create(marca);
   }
 
   /**
@@ -52,7 +63,10 @@ class MarcaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
+    //return await Marca.findOrFail(params.id)
+
+    return await Marca.query().with('produtos').with('fornecedores').where('id', params.id).first()
   }
 
   /**
@@ -64,7 +78,7 @@ class MarcaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit({ params, request, response, view }) {
   }
 
   /**
@@ -75,7 +89,14 @@ class MarcaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
+    const marca = await Marca.findOrFail(params.id)
+    const data = request.only(getCamposMarca())
+
+    marca.merge(data)
+    await marca.save()
+
+    return marca;
   }
 
   /**
@@ -86,7 +107,9 @@ class MarcaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
+    const marca = await Marca.findOrFail(params.id)
+    return await marca.delete();
   }
 }
 

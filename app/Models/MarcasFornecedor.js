@@ -8,6 +8,10 @@ class MarcasFornecedor extends Model {
     static get table(){
         return 'marcas_fornecedores'
     }
+
+    static getCamposMarcasFornecedor(){
+        return ['marca_id', 'fornecedor_id']
+    }
 }
 
 module.exports = MarcasFornecedor

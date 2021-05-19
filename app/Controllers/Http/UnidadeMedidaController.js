@@ -5,89 +5,112 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 /**
- * Resourceful controller for interacting with unidademedidas
+ * Resourceful controller for interacting with unidadeMedidas
  */
-class UnidadeMedidaController {
+
+const { getCamposUnidadesMedida } = require("../../Models/UnidadeMedida")
+const UnidadesMedida = use('App/Models/UnidadeMedida')
+
+class UnidadesMedidaController {
   /**
-   * Show a list of all unidademedidas.
-   * GET unidademedidas
+   * Show a list of all unidadeMedidas.
+   * GET unidadeMedidas
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
+    //const {page, perPage} = request.all()
+    //return UnidadesMedida.query().paginate(page, perPage)
+
+    return UnidadesMedida.all()
   }
 
   /**
-   * Render a form to be used for creating a new unidademedida.
-   * GET unidademedidas/create
+   * Render a form to be used for creating a new unidadeMedida.
+   * GET unidadeMedidas/create
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({ request, response, view }) {
   }
 
   /**
-   * Create/save a new unidademedida.
-   * POST unidademedidas
+   * Create/save a new unidadeMedida.
+   * POST unidadeMedidas
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({ request, response }) {
+    const campos = getCamposUnidadesMedida()
+    const unidadeMedida = request.only(campos)
+    return await UnidadesMedida.create(unidadeMedida);
   }
 
   /**
-   * Display a single unidademedida.
-   * GET unidademedidas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show ({ params, request, response, view }) {
-  }
-
-  /**
-   * Render a form to update an existing unidademedida.
-   * GET unidademedidas/:id/edit
+   * Display a single unidadeMedida.
+   * GET unidadeMedidas/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
+    //return await UnidadesMedida.findOrFail(params.id)
+
+    return await UnidadesMedida.query().with('produtos').where('id', params.id).first()
   }
 
   /**
-   * Update unidademedida details.
-   * PUT or PATCH unidademedidas/:id
+   * Render a form to update an existing unidadeMedida.
+   * GET unidadeMedidas/:id/edit
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async edit({ params, request, response, view }) {
+  }
+
+  /**
+   * Update unidadeMedida details.
+   * PUT or PATCH unidadeMedidas/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
+    const unidadeMedida = await UnidadesMedida.findOrFail(params.id)
+    const data = request.only(getCamposUnidadesMedida())
+
+    unidadeMedida.merge(data)
+    await unidadeMedida.save()
+
+    return unidadeMedida;
   }
 
   /**
-   * Delete a unidademedida with id.
-   * DELETE unidademedidas/:id
+   * Delete a unidadeMedida with id.
+   * DELETE unidadeMedidas/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
+    const unidadeMedida = await UnidadesMedida.findOrFail(params.id)
+    return await unidadeMedida.delete();
   }
 }
 
-module.exports = UnidadeMedidaController
+module.exports = UnidadesMedidaController

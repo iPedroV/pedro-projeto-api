@@ -64,7 +64,8 @@ class FornecedorController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
-    return await Fornecedor.findOrFail(params.id)
+    //return await Fornecedor.findOrFail(params.id)
+    return await Fornecedor.query().with('compras').with('marcas').where('id', params.id).first()
   }
 
   /**
