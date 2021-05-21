@@ -1,28 +1,36 @@
 # Uma aplicação ADONIS para o cadastramento, compra e venda de produtos.
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+Este repositório contém os códigos de uma API básica do Adonis no Visual Studio Code, desenvolvida no primeiro semestre de 2021 pelo aluno Pedro Vitor da Costa Silva do curso de Análise e Desenvolvimento de Sistemas do IESB OESTE. Os principais arquivos trabalhados foram:
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+1. Controllers
+2. Arquivo do Insomnia via JSON
+3. Models
+4. Validators
+5. Migrations e Seeds
 
-## Setup
+## Para iniciar:
 
-Use the adonis command to install the blueprint
+Vale ressaltar que você precisa estar com o node e o adonis instalado em sua máquina, após isso, basta instalar primeiramente o banco e a node modules com os comandos, respectivamente:
 
 ```bash
-adonis new yardstick --api-only
+npm i mysql
+npm i
 ```
 
-or manually clone the repo and then run `npm install`.
+após isso basta rodar o comando `adonis serve --dev`.
 
 
 ### Migrations
 
-Run the following command to run startup migrations.
+É necessário também criar o banco de dados em sua máquina, por isso rode o comando a seguir.
 
 ```js
 adonis migration:run
+```
+### Seeds
+
+Logo após faça a inserção das seeds com o seguinte comando.
+
+```js
+adonis seed
 ```
