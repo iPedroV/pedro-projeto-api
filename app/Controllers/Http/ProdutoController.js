@@ -22,8 +22,11 @@ class ProdutoController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
-    const {page, perPage} = request.all()
-    return Produto.query().paginate(page, perPage)
+    const {page, perPage, campos} = request.all()
+    
+    return Produto.query()
+                  .select(campos.split(','))
+                  .paginate(page, perPage)
 
     //return Produto.all()
   }
