@@ -7,8 +7,10 @@ class FornecedorSchema extends Schema {
   up () {
     this.create('fornecedores', (table) => {
       table.increments()
-      table.string('nome', 45).notNullable()
-      table.string('endereco', 45).notNullable()
+      table.string('nome', 100).notNullable()
+      table.string('endereco', 155).notNullable()
+      table.string('cep', 11).notNullable()
+      table.string('cnpj', 18).notNullable()
       table.string('telefone', 16)
       table.timestamps()
     })

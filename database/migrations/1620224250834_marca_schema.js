@@ -8,8 +8,10 @@ class MarcaSchema extends Schema {
     this.create('marcas', (table) => {
       table.increments()
       table.string('cnpj', 20).notNullable()
-      table.string('nome', 45).notNullable()
+      table.string('nome', 100).notNullable()
+      table.string('telefone', 15)
       table.string('email', 45)
+      table.string('site', 30)
       table.timestamps()
     })
   }
