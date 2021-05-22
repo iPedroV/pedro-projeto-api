@@ -14,7 +14,7 @@ Vale ressaltar que você precisa estar com o node e o adonis instalado em sua m�
 
 ```bash
 npm i mysql
-npm i
+npm install --legacy-bundling
 ```
 
 após isso basta rodar o comando `adonis serve --dev`.
