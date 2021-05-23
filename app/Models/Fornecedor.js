@@ -6,7 +6,7 @@ const Model = use('Model')
 class Fornecedor extends Model {
 
     static getCamposFornecedor(){
-        return ['nome', 'endereco', 'telefone']
+        return ['nome', 'endereco', 'cep', 'cnpj', 'telefone']
     }
 
     static get table(){

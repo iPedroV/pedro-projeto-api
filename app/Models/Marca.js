@@ -6,7 +6,7 @@ const Model = use('Model')
 class Marca extends Model {
     
     static getCamposMarca(){
-        return ['cnpj', 'nome', 'email']
+        return ['cnpj', 'nome', 'telefone', 'email', 'site']
     }
 
     produtos(){
