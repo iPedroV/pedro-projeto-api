@@ -2,14 +2,14 @@
 
 const ValidatorAbstract = use('App/Validators/ValidatorAbstract')
 
-class Fornecedor extends ValidatorAbstract{
+class Marca extends ValidatorAbstract{
   get rules () {
     return {
+      cnpj: 'required|min:14|max:20',
       nome: 'required|min:3|max:100',
-      endereco: 'required|min:5|max:155',
-      cep: 'required|min:8|max:11',
-      cnpj: 'required|min:14|max:18',
       telefone: 'min:10|max:16',
+      email: 'min:10|max:45',
+      site: 'min:10|max:30', 
     }
   }
   async fails (errorMessages) {
@@ -17,4 +17,4 @@ class Fornecedor extends ValidatorAbstract{
   }
 }
 
-module.exports = Fornecedor
+module.exports = Marca
