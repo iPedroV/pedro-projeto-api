@@ -5,7 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 /**
- * Resourceful controller for interacting with setors
+ * Resourceful controller for interacting with vendas
  */
 
 const { getCamposVenda } = require("../../Models/Venda")
@@ -13,8 +13,8 @@ const Venda = use('App/Models/Venda')
 
 class VendaController {
   /**
-   * Show a list of all setors.
-   * GET setors
+   * Show a list of all vendas.
+   * GET vendas
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -29,8 +29,8 @@ class VendaController {
   }
 
   /**
-   * Render a form to be used for creating a new setor.
-   * GET setors/create
+   * Render a form to be used for creating a new venda.
+   * GET vendas/create
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -41,8 +41,8 @@ class VendaController {
   }
 
   /**
-   * Create/save a new setor.
-   * POST setors
+   * Create/save a new venda.
+   * POST vendas
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -50,13 +50,13 @@ class VendaController {
    */
   async store({ request, response }) {
     const campos = getCamposVenda()
-    const setor = request.only(campos)
-    return await Venda.create(setor);
+    const venda = request.only(campos)
+    return await Venda.create(venda);
   }
 
   /**
-   * Display a single setor.
-   * GET setors/:id
+   * Display a single venda.
+   * GET vendas/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -70,8 +70,8 @@ class VendaController {
   }
 
   /**
-   * Render a form to update an existing setor.
-   * GET setors/:id/edit
+   * Render a form to update an existing venda.
+   * GET vendas/:id/edit
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -82,34 +82,34 @@ class VendaController {
   }
 
   /**
-   * Update setor details.
-   * PUT or PATCH setors/:id
+   * Update venda details.
+   * PUT or PATCH vendas/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const setor = await Venda.findOrFail(params.id)
+    const venda = await Venda.findOrFail(params.id)
     const data = request.only(getCamposVenda())
 
-    setor.merge(data)
-    await setor.save()
+    venda.merge(data)
+    await venda.save()
 
-    return setor;
+    return venda;
   }
 
   /**
-   * Delete a setor with id.
-   * DELETE setors/:id
+   * Delete a venda with id.
+   * DELETE vendas/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
-    const setor = await Venda.findOrFail(params.id)
-    return await setor.delete();
+    const venda = await Venda.findOrFail(params.id)
+    return await venda.delete();
   }
 }
 
