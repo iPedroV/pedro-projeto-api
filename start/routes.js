@@ -21,13 +21,62 @@ Route.get('/', () => {
 })
 
 
-Route.resource('/fornecedores', 'FornecedorController').apiOnly()
-Route.resource('/marcas', 'MarcaController').apiOnly()
-Route.resource('/unidadesMedida', 'UnidadeMedidaController').apiOnly()
-Route.resource('/setores', 'SetorController').apiOnly()
-Route.resource('/vendas', 'VendaController').apiOnly()
-Route.resource('/marcasFornecedor', 'MarcasFornecedorController').apiOnly()
-Route.resource('/categorias', 'CategoriaController').apiOnly()
-Route.resource('/produtos', 'ProdutoController').apiOnly()
-Route.resource('/compras', 'CompraController').apiOnly()
-Route.resource('/produtosVenda', 'ProdutosVendaController').apiOnly()
+Route.resource('/fornecedores', 'FornecedorController')
+     .apiOnly()
+     .validator(new Map([
+      [['store', 'update'], 'fornecedor'],
+     ]))
+
+Route.resource('/marcas', 'MarcaController')
+     .apiOnly()
+     .validator(new Map([
+      [['store', 'update'], 'marca'],
+     ]))
+
+Route.resource('/unidadesMedida', 'UnidadeMedidaController')
+     .apiOnly()
+     .validator(new Map([
+      [['store', 'update'], 'unidadeMedida'],
+     ]))
+
+Route.resource('/setores', 'SetorController')
+     .apiOnly()
+     .validator(new Map([
+      [['store', 'update'], 'setor'],
+     ]))
+
+Route.resource('/vendas', 'VendaController')
+     .apiOnly()
+     .validator(new Map([
+      [['store', 'update'], 'venda'],
+     ]))
+
+Route.resource('/marcasFornecedor', 'MarcasFornecedorController')
+     .apiOnly()
+     .validator(new Map([
+      [['store', 'update'], 'marcasfornecedor'],
+     ]))
+
+Route.resource('/categorias', 'CategoriaController')
+     .apiOnly()
+     .validator(new Map([
+      [['store', 'update'], 'categoria'],
+     ]))
+
+Route.resource('/produtos', 'ProdutoController')     
+     .apiOnly()     
+     .validator(new Map([     
+      [['store', 'update'], 'produto'],
+     ]))
+
+Route.resource('/compras', 'CompraController')
+     .apiOnly()     
+     .validator(new Map([     
+      [['store', 'update'], 'compra'],
+     ]))
+
+Route.resource('/produtosVenda', 'ProdutosVendaController')
+     .apiOnly()     
+     .validator(new Map([     
+      [['store', 'update'], 'produtosvenda'],
+     ]))
