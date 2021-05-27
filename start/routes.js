@@ -20,6 +20,8 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
+Route.resource('/users', 'UserController').apiOnly()
+
 
 Route.resource('/fornecedores', 'FornecedorController')
      .apiOnly()
