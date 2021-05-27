@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with unidadeMedidas
  */
 
-const { getCamposUnidadesMedida } = require("../../Models/UnidadeMedida")
+const { getCamposUnidadesMedida, getCamposListagem } = require("../../Models/UnidadeMedida")
 const UnidadesMedida = use('App/Models/UnidadeMedida')
 
 class UnidadesMedidaController {
@@ -22,10 +22,18 @@ class UnidadesMedidaController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
+    
     //const {page, perPage} = request.all()
     //return UnidadesMedida.query().paginate(page, perPage)
 
-    return UnidadesMedida.all()
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
+    
+    return UnidadesMedida.query()
+                  .select(campos)
+                  .paginate(page, perPage)
+
+    //return UnidadesMedida.all()
   }
 
   /**

@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with vendas
  */
 
-const { getCamposVenda } = require("../../Models/Venda")
+const { getCamposVenda, getCamposListagem } = require("../../Models/Venda")
 const Venda = use('App/Models/Venda')
 
 class VendaController {
@@ -22,10 +22,18 @@ class VendaController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
+    
     //const {page, perPage} = request.all()
     //return Venda.query().paginate(page, perPage)
 
-    return Venda.all()
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
+    
+    return Venda.query()
+                  .select(campos)
+                  .paginate(page, perPage)
+
+    //return Venda.all()
   }
 
   /**

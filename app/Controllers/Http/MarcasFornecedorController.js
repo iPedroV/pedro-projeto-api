@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with marcas_fornecedors
  */
 
-const { getCamposMarcasFornecedor } = require("../../Models/MarcasFornecedor")
+const { getCamposMarcasFornecedor, getCamposListagem } = require("../../Models/MarcasFornecedor")
 const MarcasFornecedor = use('App/Models/MarcasFornecedor')
 
 class MarcasFornecedorController {
@@ -25,7 +25,14 @@ class MarcasFornecedorController {
     //const {page, perPage} = request.all()
     //return MarcasFornecedor.query().paginate(page, perPage)
 
-    return MarcasFornecedor.all()
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
+    
+    return MarcasFornecedor.query()
+                  .select(campos)
+                  .paginate(page, perPage)
+                  
+    //return MarcasFornecedor.all()
   }
 
   /**

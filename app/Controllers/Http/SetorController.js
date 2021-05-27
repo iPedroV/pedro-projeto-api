@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with setors
  */
 
-const { getCamposSetor } = require("../../Models/Setor")
+const { getCamposSetor, getCamposListagem } = require("../../Models/Setor")
 const Setor = use('App/Models/Setor')
 
 class SetorController {
@@ -22,10 +22,18 @@ class SetorController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
+    
     //const {page, perPage} = request.all()
     //return Setor.query().paginate(page, perPage)
 
-    return Setor.all()
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
+    
+    return Setor.query()
+                  .select(campos)
+                  .paginate(page, perPage)
+
+    //return Setor.all()
   }
 
   /**

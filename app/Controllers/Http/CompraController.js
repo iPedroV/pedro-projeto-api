@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with compras
  */
 
-const { getCamposCompra } = require("../../Models/Compra")
+const { getCamposCompra, getCamposListagem } = require("../../Models/Compra")
 const Compra = use('App/Models/Compra')
 
 class CompraController {
@@ -25,7 +25,14 @@ class CompraController {
     //const {page, perPage} = request.all()
     //return Compra.query().paginate(page, perPage)
 
-    return Compra.all()
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
+    
+    return Compra.query()
+                  .select(campos)
+                  .paginate(page, perPage)
+                  
+    //return Compra.all()
   }
 
   /**

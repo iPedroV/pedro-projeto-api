@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with fornecedors
  */
 
-const { getCamposFornecedor } = require("../../Models/Fornecedor")
+const { getCamposFornecedor, getCamposListagem } = require("../../Models/Fornecedor")
 const Fornecedor = use('App/Models/Fornecedor')
 
 class FornecedorController {
@@ -25,7 +25,14 @@ class FornecedorController {
     //const {page, perPage} = request.all()
     //return Fornecedor.query().paginate(page, perPage)
 
-    return Fornecedor.all()
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
+    
+    return Fornecedor.query()
+                  .select(campos)
+                  .paginate(page, perPage)
+                  
+    //return Fornecedor.all()
   }
 
   /**

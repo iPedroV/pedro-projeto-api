@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with categorias
  */
 
-const { getCamposCategoria } = require("../../Models/Categoria")
+const { getCamposCategoria, getCamposListagem } = require("../../Models/Categoria")
 const Categoria = use('App/Models/Categoria')
 
 class CategoriaController {
@@ -25,7 +25,14 @@ class CategoriaController {
     //const {page, perPage} = request.all()
     //return Categoria.query().paginate(page, perPage)
 
-    return Categoria.all()
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
+    
+    return Categoria.query()
+                  .select(campos)
+                  .paginate(page, perPage)
+
+    //return Categoria.all()
   }
 
   /**

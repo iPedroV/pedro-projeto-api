@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with produtosVendas
  */
 
-const { getCamposProdutosVenda } = require("../../Models/ProdutosVenda")
+const { getCamposProdutosVenda, getCamposListagem } = require("../../Models/ProdutosVenda")
 const ProdutosVenda = use('App/Models/ProdutosVenda')
 
 class ProdutosVendaController {
@@ -22,10 +22,18 @@ class ProdutosVendaController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
+
     //const {page, perPage} = request.all()
     //return ProdutosVenda.query().paginate(page, perPage)
 
-    return ProdutosVenda.all()
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
+    
+    return ProdutosVenda.query()
+                  .select(campos)
+                  .paginate(page, perPage)
+                  
+    //return ProdutosVenda.all()
   }
 
   /**

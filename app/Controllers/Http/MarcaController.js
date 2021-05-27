@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with marcas
  */
 
-const { getCamposMarca } = require("../../Models/Marca")
+const { getCamposMarca, getCamposListagem } = require("../../Models/Marca")
 const Marca = use('App/Models/Marca')
 
 class MarcaController {
@@ -25,7 +25,14 @@ class MarcaController {
     //const {page, perPage} = request.all()
     //return Marca.query().paginate(page, perPage)
 
-    return Marca.all()
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
+    
+    return Marca.query()
+                  .select(campos)
+                  .paginate(page, perPage)
+                  
+    //return Marca.all()
   }
 
   /**

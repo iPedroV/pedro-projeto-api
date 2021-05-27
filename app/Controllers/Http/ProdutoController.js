@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with produtos
  */
 
-const { getCamposProduto } = require("../../Models/Produto")
+const { getCamposProduto, getCamposListagem } = require("../../Models/Produto")
 const Produto = use('App/Models/Produto')
 
 class ProdutoController {
@@ -22,10 +22,16 @@ class ProdutoController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
-    const {page, perPage, campos} = request.all()
+    
+    /*if ternário:
+      se ele receber os dados do usuário ele separa com as vírgulas (campos.split(','))
+      se não ele entrega o array com tudo (getCamposListagem())*/
+    
+    let {page, perPage, campos} = request.all()
+    campos = campos ? campos.split(',') : getCamposListagem()
     
     return Produto.query()
-                  .select(campos.split(','))
+                  .select(campos)
                   .paginate(page, perPage)
 
     //return Produto.all()
