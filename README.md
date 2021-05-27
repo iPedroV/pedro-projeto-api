@@ -13,7 +13,7 @@ Este repositório contém os códigos de uma API básica do Adonis no Visual Stu
 Vale ressaltar que você precisa estar com o node e o adonis instalado em sua máquina, após isso, basta instalar primeiramente o banco e a node modules com os comandos, respectivamente:
 
 ```bash
-npm i mysql
+npm i sqlite3
 npm install --legacy-bundling
 ```
 
