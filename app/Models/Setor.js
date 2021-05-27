@@ -12,6 +12,10 @@ class Setor extends Model {
     static getCamposSetor(){
         return ['nome']
     }
+
+    static getCamposListagem(){
+        return ['id', 'nome']
+    }
   
     static get table(){
         return 'setores'

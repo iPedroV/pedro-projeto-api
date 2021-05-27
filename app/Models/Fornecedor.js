@@ -9,6 +9,10 @@ class Fornecedor extends Model {
         return ['nome', 'endereco', 'cep', 'cnpj', 'telefone']
     }
 
+    static getCamposListagem(){
+        return ['id', 'nome', 'endereco', 'cep', 'cnpj', 'telefone']
+    }
+
     static get table(){
         return 'fornecedores'
     }

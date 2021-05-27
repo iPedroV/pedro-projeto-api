@@ -8,6 +8,10 @@ class ProdutosVenda extends Model {
     static getCamposProdutosVenda(){
         return ['produto_id', 'venda_id']
     }
+
+    static getCamposListagem(){
+        return ['id', 'produto_id', 'venda_id']
+    }
 }
 
 module.exports = ProdutosVenda

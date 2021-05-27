@@ -9,6 +9,10 @@ class Compra extends Model {
         return ['valor_compra', 'data_compra', 'fornecedor_id', 'produto_id']
     }
 
+    static getCamposListagem(){
+        return ['id', 'valor_compra', 'data_compra', 'fornecedor_id', 'produto_id']
+    }
+
     fornecedor(){
         return this.belongsTo('App/Models/Fornecedor')
     }

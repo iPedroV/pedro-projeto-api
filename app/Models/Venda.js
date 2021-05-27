@@ -9,6 +9,10 @@ class Venda extends Model {
         return ['valor_venda', 'data_venda']
     }
 
+    static getCamposListagem(){
+        return ['id', 'valor_venda', 'data_venda']
+    }
+
     produtos(){
         return this.belongsToMany('App/Models/Venda').pivotTable('produtos_vendas')
     }

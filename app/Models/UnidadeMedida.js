@@ -9,9 +9,12 @@ class UnidadeMedida extends Model {
         return this.hasMany('App/Models/Produto')
     }
     
-
     static getCamposUnidadesMedida(){
         return ['unidade_medida']
+    }
+
+    static getCamposListagem(){
+        return ['id', 'unidade_medida']
     }
 }
 

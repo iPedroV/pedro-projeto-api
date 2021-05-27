@@ -6,17 +6,17 @@ const Model = use('Model')
 class Produto extends Model {
 
     static getCamposProduto(){
-        return ['nome', 'descricao', 'peso_bruto', 'peso_liquido', 'qtd_disponivel', 'qtd_min', 'cod_barra',
+        return ['nome', 'descricao', 'peso_bruto', 'qtd_disponivel', 'qtd_min', 'cod_barra',
+                'data_fabricacao', 'data_vencimento', 'preco', 'categoria_id', 'marca_id', 'unidade_medida_id']
+    }
+    static getCamposListagem(){
+        return ['id', 'nome', 'descricao', 'peso_bruto', 'qtd_disponivel', 'qtd_min', 'cod_barra',
                 'data_fabricacao', 'data_vencimento', 'preco', 'categoria_id', 'marca_id', 'unidade_medida_id']
     }
 
     unidadeMedida(){
         return this.belongsTo('App/Models/UnidadeMedida')
     }
-
-    //unidadeMedidaLiquido(){
-    //    return this.belongsTo('App/Models/UnidadesMedida')
-    //}
 
     categoria(){
         return this.belongsTo('App/Models/Categoria')

@@ -12,6 +12,10 @@ class Categoria extends Model {
     static getCamposCategoria(){
         return ['descricao', 'setor_id']
     }
+
+    static getCamposListagem(){
+        return ['id', 'descricao', 'setor_id']
+    }
 }
 
 module.exports = Categoria

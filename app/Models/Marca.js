@@ -9,6 +9,10 @@ class Marca extends Model {
         return ['cnpj', 'nome', 'telefone', 'email', 'site']
     }
 
+    static getCamposListagem(){
+        return ['id', 'cnpj', 'nome', 'telefone', 'email', 'site']
+    }
+
     produtos(){
         return this.hasMany('App/Models/Produto')
     }
