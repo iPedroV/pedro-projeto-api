@@ -5,7 +5,14 @@ const User = use('App/Models/User')
 class UserController {
 
     async index(){
-        return User.all()
+        return User.query().select(['id', 'username', 'email']).fetch()
+    }
+
+    async show({params}){
+        return User.query()
+                   .select(['id', 'username', 'email'])
+                   .where('id', params.id)
+                   .first()
     }
 
     async store({request}){
@@ -15,6 +22,12 @@ class UserController {
 
         return await User.create(dados)
 
+    }
+
+    async token({request, auth}){
+
+        const {email, password} = request.all()
+        return await auth.attempt(email, password)
     }
 
 }
