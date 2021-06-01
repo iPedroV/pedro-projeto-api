@@ -15,8 +15,8 @@ module.exports = {
   options: {
     swaggerDefinition: {
       info: {
-        title: 'Adonis 💘 Swagger',
-        version: '1.0.0',
+        title: 'Adonis 💘 Pedro',
+        version: '1.0.2',
       },
   
       basePath: '/',
