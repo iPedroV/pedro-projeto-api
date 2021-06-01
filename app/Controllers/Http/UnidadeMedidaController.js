@@ -12,15 +12,19 @@ const { getCamposUnidadesMedida, getCamposListagem } = require("../../Models/Uni
 const UnidadesMedida = use('App/Models/UnidadeMedida')
 
 class UnidadesMedidaController {
+  
   /**
-   * Show a list of all unidadeMedidas.
-   * GET unidadeMedidas
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /unidadesMedida:
+  *   get:
+  *     tags:
+  *       - UnidadesMedida
+  *     summary: Listagem completa de UnidadesMedida
+  *     responses:
+  *       200:
+  *         description: Lista de UnidadesMedida
+  */
+
   async index({ request, response, view }) {
     
     //const {page, perPage} = request.all()
@@ -48,14 +52,24 @@ class UnidadesMedidaController {
   async create({ request, response, view }) {
   }
 
+
   /**
-   * Create/save a new unidadeMedida.
-   * POST unidadeMedidas
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /unidadesMedida:
+  *   post:
+  *     tags:
+  *       - UnidadesMedida
+  *     summary: Criação de uma nova unidade de medida
+  *     parameters:
+  *         - name: unidade_medida
+  *           description: Unidade de medida
+  *           in: query
+  *           required: true
+  *           type: string
+  *     responses:
+  *       200:
+  *         description: Unidade de medida criada
+  */
   async store({ request, response }) {
     const campos = getCamposUnidadesMedida()
     const unidadeMedida = request.only(campos)

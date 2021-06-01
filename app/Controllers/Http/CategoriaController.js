@@ -12,15 +12,19 @@ const { getCamposCategoria, getCamposListagem } = require("../../Models/Categori
 const Categoria = use('App/Models/Categoria')
 
 class CategoriaController {
+  
   /**
-   * Show a list of all categorias.
-   * GET categorias
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /categorias:
+  *   get:
+  *     tags:
+  *       - Categoria
+  *     summary: Listagem completa de Categorias
+  *     responses:
+  *       200:
+  *         description: Lista de Categorias
+  */
+
   async index({ request, response, view }) {
     //const {page, perPage} = request.all()
     //return Categoria.query().paginate(page, perPage)
@@ -48,13 +52,27 @@ class CategoriaController {
   }
 
   /**
-   * Create/save a new categoria.
-   * POST categorias
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /categorias:
+  *   post:
+  *     tags:
+  *       - Categoria
+  *     summary: Criação de uma nova Categoria
+  *     parameters:
+  *         - name: descricao
+  *           description: Descricao da Categoria
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: setor_id
+  *           description: ID do Setor
+  *           in: query
+  *           required: true
+  *           type: integer  
+  *     responses:
+  *       200:
+  *         description: Categoria criada
+  */
   async store({ request, response }) {
     const campos = getCamposCategoria()
     const categoria = request.only(campos)

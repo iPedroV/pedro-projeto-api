@@ -12,15 +12,19 @@ const { getCamposProduto, getCamposListagem } = require("../../Models/Produto")
 const Produto = use('App/Models/Produto')
 
 class ProdutoController {
+  
   /**
-   * Show a list of all produtos.
-   * GET produtos
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /produtos:
+  *   get:
+  *     tags:
+  *       - Produto
+  *     summary: Listagem completa de Produtos
+  *     responses:
+  *       200:
+  *         description: Lista de Produtos
+  */
+
   async index({ request, response, view }) {
     
     /*if ternário:
@@ -49,14 +53,79 @@ class ProdutoController {
   async create({ request, response, view }) {
   }
 
+
   /**
-   * Create/save a new produto.
-   * POST produtos
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /produtos:
+  *   post:
+  *     tags:
+  *       - Produto
+  *     summary: Criação de um novo produto
+  *     parameters:
+  *         - name: nome
+  *           description: Nome do produto
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: descricao
+  *           description: Descricao do produto
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: peso_bruto
+  *           description: Peso do produto
+  *           in: query
+  *           required: true
+  *           type: number
+  *         - name: qtd_disponivel
+  *           description: Quantidade disponivel do produto
+  *           in: query
+  *           required: false
+  *           type: integer
+  *         - name: qtd_min
+  *           description: Quantidade minima do produto
+  *           in: query
+  *           required: true
+  *           type: integer
+  *         - name: cod_barra
+  *           description: Codigo de barras do produto
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: data_fabricacao
+  *           description: Data de fabricacao do produto
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: data_vencimento
+  *           description: Data de vencimento do produto
+  *           in: query
+  *           required: false
+  *           type: string
+  *         - name: preco
+  *           description: Preco do produto
+  *           in: query
+  *           required: true
+  *           type: number
+  *         - name: categoria_id
+  *           description: ID de categoria
+  *           in: query
+  *           required: true
+  *           type: integer
+  *         - name: marca_id
+  *           description: ID de marca
+  *           in: query
+  *           required: true
+  *           type: integer
+  *         - name: unidade_medida_id
+  *           description: ID de unidade_medida
+  *           in: query
+  *           required: true
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Produto criado
+  */
   async store({ request, response }) {
     const campos = getCamposProduto()
     const produto = request.only(campos)

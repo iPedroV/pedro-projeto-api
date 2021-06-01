@@ -12,15 +12,19 @@ const { getCamposFornecedor, getCamposListagem } = require("../../Models/Fornece
 const Fornecedor = use('App/Models/Fornecedor')
 
 class FornecedorController {
+  
   /**
-   * Show a list of all fornecedors.
-   * GET fornecedors
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /fornecedores:
+  *   get:
+  *     tags:
+  *       - Fornecedor
+  *     summary: Listagem completa de Fornecedores
+  *     responses:
+  *       200:
+  *         description: Lista de Fornecedores
+  */
+
   async index({ request, response, view }) {
     //const {page, perPage} = request.all()
     //return Fornecedor.query().paginate(page, perPage)
@@ -48,13 +52,42 @@ class FornecedorController {
   }
 
   /**
-   * Create/save a new fornecedor.
-   * POST fornecedors
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /fornecedores:
+  *   post:
+  *     tags:
+  *       - Fornecedor
+  *     summary: Criação de uma novo Fornecedor
+  *     parameters:
+  *         - name: nome
+  *           description: Nome do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: endereco
+  *           description: Endereco do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: cep
+  *           description: CEP do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: cnpj
+  *           description: CNPJ do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: telefone
+  *           description: Telefone do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string  
+  *     responses:
+  *       200:
+  *         description: Fornecedor criado
+  */
   async store({ request, response }) {
     const campos = getCamposFornecedor()
     const fornecedor = request.only(campos)

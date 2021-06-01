@@ -12,15 +12,19 @@ const { getCamposMarca, getCamposListagem } = require("../../Models/Marca")
 const Marca = use('App/Models/Marca')
 
 class MarcaController {
+  
   /**
-   * Show a list of all marcas.
-   * GET marcas
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /marcas:
+  *   get:
+  *     tags:
+  *       - Marca
+  *     summary: Listagem completa de Marcas
+  *     responses:
+  *       200:
+  *         description: Lista de Marcas
+  */
+
   async index({ request, response, view }) {
     //const {page, perPage} = request.all()
     //return Marca.query().paginate(page, perPage)
@@ -48,13 +52,42 @@ class MarcaController {
   }
 
   /**
-   * Create/save a new marca.
-   * POST marcas
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /marcas:
+  *   post:
+  *     tags:
+  *       - Marca
+  *     summary: Criação de uma nova Marca
+  *     parameters:
+  *         - name: cnpj
+  *           description: CNPJ da Marca
+  *           in: query
+  *           required: false
+  *           type: string
+  *         - name: nome
+  *           description: Nome da Marca
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: telefone
+  *           description: Telefone da Marca
+  *           in: query
+  *           required: false
+  *           type: string  
+  *         - name: email
+  *           description: Email da Marca
+  *           in: query
+  *           required: false
+  *           type: string  
+  *         - name: site
+  *           description: Site da Marca
+  *           in: query
+  *           required: false
+  *           type: string  
+  *     responses:
+  *       200:
+  *         description: Marca criada
+  */
   async store({ request, response }) {
     const campos = getCamposMarca()
     const marca = request.only(campos)

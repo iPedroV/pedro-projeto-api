@@ -12,15 +12,19 @@ const { getCamposSetor, getCamposListagem } = require("../../Models/Setor")
 const Setor = use('App/Models/Setor')
 
 class SetorController {
+  
   /**
-   * Show a list of all setors.
-   * GET setors
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /setores:
+  *   get:
+  *     tags:
+  *       - Setor
+  *     summary: Listagem completa de Setores
+  *     responses:
+  *       200:
+  *         description: Lista de Setores
+  */
+
   async index({ request, response, view }) {
     
     //const {page, perPage} = request.all()
@@ -49,13 +53,23 @@ class SetorController {
   }
 
   /**
-   * Create/save a new setor.
-   * POST setors
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /setores:
+  *   post:
+  *     tags:
+  *       - Setor
+  *     summary: Criação de uma novo Setor
+  *     parameters:
+  *         - name: nome
+  *           description: Nome do setor
+  *           in: query
+  *           required: true
+  *           type: string
+  *     responses:
+  *       200:
+  *         description: Setor criado
+  */
+
   async store({ request, response }) {
     const campos = getCamposSetor()
     const setor = request.only(campos)

@@ -12,15 +12,19 @@ const { getCamposMarcasFornecedor, getCamposListagem } = require("../../Models/M
 const MarcasFornecedor = use('App/Models/MarcasFornecedor')
 
 class MarcasFornecedorController {
+  
   /**
-   * Show a list of all marcas_fornecedors.
-   * GET marcas_fornecedors
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /marcasFornecedor:
+  *   get:
+  *     tags:
+  *       - MarcasFornecedor
+  *     summary: Listagem completa de MarcasFornecedor
+  *     responses:
+  *       200:
+  *         description: Lista de MarcasFornecedor
+  */
+
   async index({ request, response, view }) {
     //const {page, perPage} = request.all()
     //return MarcasFornecedor.query().paginate(page, perPage)
@@ -48,13 +52,28 @@ class MarcasFornecedorController {
   }
 
   /**
-   * Create/save a new marcas_fornecedor.
-   * POST marcas_fornecedors
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /marcasFornecedor:
+  *   post:
+  *     tags:
+  *       - MarcasFornecedor
+  *     summary: Criação de uma nova MarcasFornecedor
+  *     parameters:
+  *         - name: marca_id
+  *           description: ID de marca
+  *           in: query
+  *           required: true
+  *           type: integer
+  *         - name: fornecedor_id
+  *           description: ID de fornecedor
+  *           in: query
+  *           required: true
+  *           type: integer  
+  *     responses:
+  *       200:
+  *         description: MarcasFornecedor criada
+  */
+
   async store({ request, response }) {
     const campos = getCamposMarcasFornecedor()
     const marcas_fornecedor = request.only(campos)

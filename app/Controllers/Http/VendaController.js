@@ -12,15 +12,19 @@ const { getCamposVenda, getCamposListagem } = require("../../Models/Venda")
 const Venda = use('App/Models/Venda')
 
 class VendaController {
+  
   /**
-   * Show a list of all vendas.
-   * GET vendas
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /vendas:
+  *   get:
+  *     tags:
+  *       - Venda
+  *     summary: Listagem completa de Vendas
+  *     responses:
+  *       200:
+  *         description: Lista de Vendas
+  */
+
   async index({ request, response, view }) {
     
     //const {page, perPage} = request.all()
@@ -49,13 +53,27 @@ class VendaController {
   }
 
   /**
-   * Create/save a new venda.
-   * POST vendas
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /vendas:
+  *   post:
+  *     tags:
+  *       - Venda
+  *     summary: Criação de uma nova Venda
+  *     parameters:
+  *         - name: valor_venda
+  *           description: Valor de Venda
+  *           in: query
+  *           required: false
+  *           type: string
+  *         - name: data_venda
+  *           description: Data de Venda
+  *           in: query
+  *           required: true
+  *           type: string  
+  *     responses:
+  *       200:
+  *         description: Venda efetuada
+  */
   async store({ request, response }) {
     const campos = getCamposVenda()
     const venda = request.only(campos)
@@ -63,14 +81,20 @@ class VendaController {
   }
 
   /**
-   * Display a single venda.
-   * GET vendas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /vendas/{id}:
+  *   get:
+  *     tags: 
+  *       - Venda
+  *     summary: Listagem de uma Venda específica
+  *     parameters:
+  *         - name: id
+  *           description: Venda pelo id
+  *           in: parameter
+  *     responses:
+  *       200:
+  *         description: Venda no ID
+  */
   async show({ params, request, response, view }) {
     //return await Venda.findOrFail(params.id)
 

@@ -12,15 +12,19 @@ const { getCamposCompra, getCamposListagem } = require("../../Models/Compra")
 const Compra = use('App/Models/Compra')
 
 class CompraController {
+  
   /**
-   * Show a list of all compras.
-   * GET compras
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /compras:
+  *   get:
+  *     tags:
+  *       - Compra
+  *     summary: Listagem completa de Compras
+  *     responses:
+  *       200:
+  *         description: Lista de Compras
+  */
+
   async index({ request, response, view }) {
     //const {page, perPage} = request.all()
     //return Compra.query().paginate(page, perPage)
@@ -47,14 +51,39 @@ class CompraController {
   async create({ request, response, view }) {
   }
 
+
   /**
-   * Create/save a new compra.
-   * POST compras
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /compras:
+  *   post:
+  *     tags:
+  *       - Compra
+  *     summary: Criação de uma nova Compra
+  *     parameters:
+  *         - name: valor_compra
+  *           description: Valor da Compra
+  *           in: query
+  *           required: false
+  *           type: number
+  *         - name: data_compra
+  *           description: Data da Compra
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: fornecedor_id
+  *           description: ID de Fornecedor
+  *           in: query
+  *           required: true
+  *           type: integer  
+  *         - name: data_compra
+  *           description: ID de Produto
+  *           in: query
+  *           required: true
+  *           type: integer  
+  *     responses:
+  *       200:
+  *         description: Compra efetuada
+  */
   async store({ request, response }) {
     const campos = getCamposCompra()
     const compra = request.only(campos)
