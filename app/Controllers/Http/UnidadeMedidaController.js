@@ -52,7 +52,6 @@ class UnidadesMedidaController {
   async create({ request, response, view }) {
   }
 
-
   /**
   * @swagger
   * /unidadesMedida:
@@ -70,6 +69,7 @@ class UnidadesMedidaController {
   *       200:
   *         description: Unidade de medida criada
   */
+
   async store({ request, response }) {
     const campos = getCamposUnidadesMedida()
     const unidadeMedida = request.only(campos)
@@ -77,14 +77,22 @@ class UnidadesMedidaController {
   }
 
   /**
-   * Display a single unidadeMedida.
-   * GET unidadeMedidas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /unidadesMedida/{id}:
+  *   get:
+  *     tags: 
+  *       - UnidadesMedida
+  *     summary: Listagem de uma Unidade de Medida específica
+  *     parameters:
+  *         - name: id
+  *           description: Unidade de Medida específica pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Unidade de Medida específica no ID
+  */
+
   async show({ params, request, response, view }) {
     //return await UnidadesMedida.findOrFail(params.id)
 
@@ -104,13 +112,27 @@ class UnidadesMedidaController {
   }
 
   /**
-   * Update unidadeMedida details.
-   * PUT or PATCH unidadeMedidas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /unidadesMedida/{id}:
+  *   put:
+  *     tags: 
+  *       - UnidadesMedida
+  *     summary: Atualização de uma Unidade de Medida específica
+  *     parameters:
+  *         - name: id
+  *           description: Atualização de uma Unidade de Medida específica
+  *           in: path
+  *           type: integer
+  *         - name: unidade_medida
+  *           description: Unidade de medida
+  *           in: query
+  *           required: true
+  *           type: string
+  *     responses:
+  *       200:
+  *         description: Unidade de Medida atualizada
+  */
+
   async update({ params, request, response }) {
     const unidadeMedida = await UnidadesMedida.findOrFail(params.id)
     const data = request.only(getCamposUnidadesMedida())
@@ -122,13 +144,22 @@ class UnidadesMedidaController {
   }
 
   /**
-   * Delete a unidadeMedida with id.
-   * DELETE unidadeMedidas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /unidadesMedida/{id}:
+  *   delete:
+  *     tags: 
+  *       - UnidadesMedida
+  *     summary: Exclusão de uma Unidade de Medida específica pelo ID
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão de uma Unidade de Medida específica pelo ID
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Unidade de Medida excluída
+  */
+ 
   async destroy({ params, request, response }) {
     const unidadeMedida = await UnidadesMedida.findOrFail(params.id)
     return await unidadeMedida.delete();

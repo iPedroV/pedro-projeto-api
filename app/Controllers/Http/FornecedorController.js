@@ -95,14 +95,22 @@ class FornecedorController {
   }
 
   /**
-   * Display a single fornecedor.
-   * GET fornecedors/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /fornecedores/{id}:
+  *   get:
+  *     tags:
+  *       - Fornecedor
+  *     summary: Listagem específica de um Fornecedor específico pelo id
+  *     parameters:
+  *         - name: id
+  *           description: Fornecedor pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Fornecedor listado
+  */
+
   async show({ params, request, response, view }) {
     //return await Fornecedor.findOrFail(params.id)
     return await Fornecedor.query().with('compras').with('marcas').where('id', params.id).first()
@@ -121,13 +129,47 @@ class FornecedorController {
   }
 
   /**
-   * Update fornecedor details.
-   * PUT or PATCH fornecedors/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /fornecedores/{id}:
+  *   put:
+  *     tags:
+  *       - Fornecedor
+  *     summary: Atualização de um Fornecedor pelo id
+  *     parameters:
+  *         - name: id
+  *           description: Atualização de um Fornecedor pelo id
+  *           in: path
+  *           type: integer
+  *         - name: nome
+  *           description: Nome do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: endereco
+  *           description: Endereco do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: cep
+  *           description: CEP do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: cnpj
+  *           description: CNPJ do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: telefone
+  *           description: Telefone do Fornecedor
+  *           in: query
+  *           required: true
+  *           type: string  
+  *     responses:
+  *       200:
+  *         description: Fornecedor atualizado
+  */
+
   async update({ params, request, response }) {
     const fornecedor = await Fornecedor.findOrFail(params.id)
     const data = request.only(getCamposFornecedor())
@@ -139,13 +181,22 @@ class FornecedorController {
   }
 
   /**
-   * Delete a fornecedor with id.
-   * DELETE fornecedors/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /fornecedores/{id}:
+  *   delete:
+  *     tags:
+  *       - Fornecedor
+  *     summary: Exclusão de um Fornecedor pelo id
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão de um Fornecedor pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Fornecedor excluído
+  */
+
   async destroy({ params, request, response }) {
     const fornecedor = await Fornecedor.findOrFail(params.id)
     return await fornecedor.delete();

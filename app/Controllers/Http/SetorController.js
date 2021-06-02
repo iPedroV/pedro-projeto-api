@@ -77,14 +77,22 @@ class SetorController {
   }
 
   /**
-   * Display a single setor.
-   * GET setors/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /setores/{id}:
+  *   get:
+  *     tags:
+  *       - Setor
+  *     summary: Listagem de uma novo Setor específico
+  *     parameters:
+  *         - name: id
+  *           description: Setor pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Setor no ID
+  */
+ 
   async show({ params, request, response, view }) {
     //return await Setor.findOrFail(params.id)
 
@@ -104,13 +112,27 @@ class SetorController {
   }
 
   /**
-   * Update setor details.
-   * PUT or PATCH setors/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /setores/{id}:
+  *   put:
+  *     tags:
+  *       - Setor
+  *     summary: Atualização de um Setor
+  *     parameters:
+  *         - name: id
+  *           description: Setor pelo id
+  *           in: path
+  *           type: integer
+  *         - name: nome
+  *           description: Nome do setor
+  *           in: query
+  *           required: true
+  *           type: string
+  *     responses:
+  *       200:
+  *         description: Setor atualizao
+  */
+ 
   async update({ params, request, response }) {
     const setor = await Setor.findOrFail(params.id)
     const data = request.only(getCamposSetor())
@@ -122,13 +144,22 @@ class SetorController {
   }
 
   /**
-   * Delete a setor with id.
-   * DELETE setors/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /setores/{id}:
+  *   delete:
+  *     tags:
+  *       - Setor
+  *     summary: Exclusão de uma novo Setor específico
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão do Setor pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Exclusão do Setor no ID
+  */
+ 
   async destroy({ params, request, response }) {
     const setor = await Setor.findOrFail(params.id)
     return await setor.delete();

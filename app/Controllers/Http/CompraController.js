@@ -91,14 +91,22 @@ class CompraController {
   }
 
   /**
-   * Display a single compra.
-   * GET compras/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /compras/{id}:
+  *   get:
+  *     tags:
+  *       - Compra
+  *     summary: Listagem de uma Compra específica pelo id
+  *     parameters:
+  *         - name: id
+  *           description: Compra pelo id
+  *           in: path
+  *           type: integer 
+  *     responses:
+  *       200:
+  *         description: Compra listada
+  */
+
   async show({ params, request, response, view }) {
     //return await Compra.findOrFail(params.id)
 
@@ -118,13 +126,42 @@ class CompraController {
   }
 
   /**
-   * Update compra details.
-   * PUT or PATCH compras/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /compras/{id}:
+  *   put:
+  *     tags:
+  *       - Compra
+  *     summary: Atualização de uma Compra específica pelo id
+  *     parameters:
+  *         - name: id
+  *           description: Atualização de uma Compra pelo id
+  *           in: path
+  *           type: integer
+  *         - name: valor_compra
+  *           description: Valor da Compra
+  *           in: query
+  *           required: false
+  *           type: number
+  *         - name: data_compra
+  *           description: Data da Compra
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: fornecedor_id
+  *           description: ID de Fornecedor
+  *           in: query
+  *           required: true
+  *           type: integer  
+  *         - name: data_compra
+  *           description: ID de Produto
+  *           in: query
+  *           required: true
+  *           type: integer 
+  *     responses:
+  *       200:
+  *         description: Compra atualizada
+  */
+
   async update({ params, request, response }) {
     const compra = await Compra.findOrFail(params.id)
     const data = request.only(getCamposCompra())
@@ -136,13 +173,22 @@ class CompraController {
   }
 
   /**
-   * Delete a compra with id.
-   * DELETE compras/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /compras/{id}:
+  *   delete:
+  *     tags:
+  *       - Compra
+  *     summary: Exclusão de uma Compra específica pelo id
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão de uma Compra pelo id
+  *           in: path
+  *           type: integer 
+  *     responses:
+  *       200:
+  *         description: Compra excluída
+  */
+
   async destroy({ params, request, response }) {
     const compra = await Compra.findOrFail(params.id)
     return await compra.delete();

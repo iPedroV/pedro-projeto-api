@@ -95,14 +95,22 @@ class MarcaController {
   }
 
   /**
-   * Display a single marca.
-   * GET marcas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /marcas/{id}:
+  *   get:
+  *     tags:
+  *       - Marca
+  *     summary: Listagem de Marca específica pelo seu id
+  *     parameters:
+  *         - name: id
+  *           description: Marca pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Marca listada
+  */
+
   async show({ params, request, response, view }) {
     //return await Marca.findOrFail(params.id)
 
@@ -122,13 +130,47 @@ class MarcaController {
   }
 
   /**
-   * Update marca details.
-   * PUT or PATCH marcas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /marcas/{id}:
+  *   put:
+  *     tags:
+  *       - Marca
+  *     summary: Atualização de Marca específica pelo seu id
+  *     parameters:
+  *         - name: id
+  *           description: Atualização de Marca pelo id
+  *           in: path
+  *           type: integer
+  *         - name: cnpj
+  *           description: CNPJ da Marca
+  *           in: query
+  *           required: false
+  *           type: string
+  *         - name: nome
+  *           description: Nome da Marca
+  *           in: query
+  *           required: true
+  *           type: string  
+  *         - name: telefone
+  *           description: Telefone da Marca
+  *           in: query
+  *           required: false
+  *           type: string  
+  *         - name: email
+  *           description: Email da Marca
+  *           in: query
+  *           required: false
+  *           type: string  
+  *         - name: site
+  *           description: Site da Marca
+  *           in: query
+  *           required: false
+  *           type: string  
+  *     responses:
+  *       200:
+  *         description: Marca atualizada
+  */
+
   async update({ params, request, response }) {
     const marca = await Marca.findOrFail(params.id)
     const data = request.only(getCamposMarca())
@@ -140,13 +182,22 @@ class MarcaController {
   }
 
   /**
-   * Delete a marca with id.
-   * DELETE marcas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /marcas/{id}:
+  *   delete:
+  *     tags:
+  *       - Marca
+  *     summary: Exclusão de uma Marca específica pelo seu id
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão de Marca pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Marca excluída
+  */
+
   async destroy({ params, request, response }) {
     const marca = await Marca.findOrFail(params.id)
     return await marca.delete();

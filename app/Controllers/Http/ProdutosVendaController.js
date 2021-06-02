@@ -82,14 +82,22 @@ class ProdutosVendaController {
   }
 
   /**
-   * Display a single produtosVenda.
-   * GET produtosVendas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /produtosVenda/{id}:
+  *   get:
+  *     tags:
+  *       - ProdutosVenda
+  *     summary: Listagem de uma nova venda de produto específica
+  *     parameters:
+  *         - name: id
+  *           description: Venda de um id específico
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Venda de produto listada
+  */
+
   async show({ params, request, response, view }) {
     return await ProdutosVenda.findOrFail(params.id)
   }
@@ -107,13 +115,31 @@ class ProdutosVendaController {
   }
 
   /**
-   * Update produtosVenda details.
-   * PUT or PATCH produtosVendas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /produtosVenda/{id}:
+  *   put:
+  *     tags:
+  *       - ProdutosVenda
+  *     summary: Atualização de uma nova venda de produto específica
+  *     parameters:
+  *         - name: id
+  *           description: Atualização de ProdutosVenda de um id específico
+  *           in: path
+  *           type: integer
+  *         - name: produto_id
+  *           description: ID do produto
+  *           in: query
+  *           required: true
+  *           type: integer
+  *         - name: venda_id
+  *           description: ID de venda
+  *           in: query
+  *           required: true
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Venda de produto atualizada
+  */
   async update({ params, request, response }) {
     const produtosVenda = await ProdutosVenda.findOrFail(params.id)
     const data = request.only(getCamposProdutosVenda())
@@ -125,13 +151,22 @@ class ProdutosVendaController {
   }
 
   /**
-   * Delete a produtosVenda with id.
-   * DELETE produtosVendas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /produtosVenda/{id}:
+  *   delete:
+  *     tags:
+  *       - ProdutosVenda
+  *     summary: Exclusão de uma venda de produto específica
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão Venda de um id específico
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Venda de produto excluída
+  */
+
   async destroy({ params, request, response }) {
     const produtosVenda = await ProdutosVenda.findOrFail(params.id)
     return await produtosVenda.delete();

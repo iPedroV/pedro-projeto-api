@@ -80,14 +80,22 @@ class CategoriaController {
   }
 
   /**
-   * Display a single categoria.
-   * GET categorias/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /categorias/{id}:
+  *   get:
+  *     tags:
+  *       - Categoria
+  *     summary: Listagem de uma Categoria específica pelo id
+  *     parameters:
+  *         - name: id
+  *           description: Categoria pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Categoria listada
+  */
+
   async show({ params, request, response, view }) {
     //return await Categoria.findOrFail(params.id)
 
@@ -107,13 +115,32 @@ class CategoriaController {
   }
 
   /**
-   * Update categoria details.
-   * PUT or PATCH categorias/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /categorias/{id}:
+  *   put:
+  *     tags:
+  *       - Categoria
+  *     summary: Atualização de uma Categoria específica pelo id
+  *     parameters:
+  *         - name: id
+  *           description: Atualização de uma Categoria pelo id
+  *           in: path
+  *           type: integer
+  *         - name: descricao
+  *           description: Descricao da Categoria
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: setor_id
+  *           description: ID do Setor
+  *           in: query
+  *           required: true
+  *           type: integer   
+  *     responses:
+  *       200:
+  *         description: Categoria atualizada
+  */
+
   async update({ params, request, response }) {
     const categoria = await Categoria.findOrFail(params.id)
     const data = request.only(getCamposCategoria())
@@ -125,13 +152,22 @@ class CategoriaController {
   }
 
   /**
-   * Delete a categoria with id.
-   * DELETE categorias/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /categorias/{id}:
+  *   delete:
+  *     tags:
+  *       - Categoria
+  *     summary: Exclusão de uma Categoria específica pelo id
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão de uma Categoria pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Categoria excluída
+  */
+
   async destroy({ params, request, response }) {
     const categoria = await Categoria.findOrFail(params.id)
     return await categoria.delete();

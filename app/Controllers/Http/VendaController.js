@@ -74,6 +74,7 @@ class VendaController {
   *       200:
   *         description: Venda efetuada
   */
+
   async store({ request, response }) {
     const campos = getCamposVenda()
     const venda = request.only(campos)
@@ -90,11 +91,13 @@ class VendaController {
   *     parameters:
   *         - name: id
   *           description: Venda pelo id
-  *           in: parameter
+  *           in: path
+  *           type: integer
   *     responses:
   *       200:
   *         description: Venda no ID
   */
+
   async show({ params, request, response, view }) {
     //return await Venda.findOrFail(params.id)
 
@@ -112,15 +115,33 @@ class VendaController {
    */
   async edit({ params, request, response, view }) {
   }
-
   /**
-   * Update venda details.
-   * PUT or PATCH vendas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /vendas/{id}:
+  *   put:
+  *     tags: 
+  *       - Venda
+  *     summary: Listagem de uma Venda específica
+  *     parameters:
+  *         - name: id
+  *           description: Venda pelo id
+  *           in: path
+  *           type: integer
+  *         - name: valor_venda
+  *           description: Valor de Venda
+  *           in: query
+  *           required: false
+  *           type: string
+  *         - name: data_venda
+  *           description: Data de Venda
+  *           in: query
+  *           required: true
+  *           type: string  
+  *     responses:
+  *       200:
+  *         description: Venda no ID
+  */
+
   async update({ params, request, response }) {
     const venda = await Venda.findOrFail(params.id)
     const data = request.only(getCamposVenda())
@@ -132,13 +153,22 @@ class VendaController {
   }
 
   /**
-   * Delete a venda with id.
-   * DELETE vendas/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /vendas/{id}:
+  *   delete:
+  *     tags: 
+  *       - Venda
+  *     summary: Exclusão de uma Venda específica
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão de uma Venda pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Exclusão da Venda no ID
+  */
+
   async destroy({ params, request, response }) {
     const venda = await Venda.findOrFail(params.id)
     return await venda.delete();

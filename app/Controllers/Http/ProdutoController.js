@@ -133,14 +133,22 @@ class ProdutoController {
   }
 
   /**
-   * Display a single produto.
-   * GET produtos/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /produtos/{id}:
+  *   get:
+  *     tags:
+  *       - Produto
+  *     summary: Listagem de um Produto em específico
+  *     parameters:
+  *         - name: id
+  *           description: Produto pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Produto listado
+  */
+
   async show({ params, request, response, view }) {
     //return await Produto.findOrFail(params.id)
 
@@ -167,13 +175,82 @@ class ProdutoController {
   }
 
   /**
-   * Update produto details.
-   * PUT or PATCH produtos/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /produtos/{id}:
+  *   put:
+  *     tags:
+  *       - Produto
+  *     summary: Atualização de um Produto em específico
+  *     parameters:
+  *         - name: id
+  *           description: Atualização de um Produto pelo id
+  *           in: path
+  *           type: integer
+  *         - name: nome
+  *           description: Nome do produto
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: descricao
+  *           description: Descricao do produto
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: peso_bruto
+  *           description: Peso do produto
+  *           in: query
+  *           required: true
+  *           type: number
+  *         - name: qtd_disponivel
+  *           description: Quantidade disponivel do produto
+  *           in: query
+  *           required: false
+  *           type: integer
+  *         - name: qtd_min
+  *           description: Quantidade minima do produto
+  *           in: query
+  *           required: true
+  *           type: integer
+  *         - name: cod_barra
+  *           description: Codigo de barras do produto
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: data_fabricacao
+  *           description: Data de fabricacao do produto
+  *           in: query
+  *           required: true
+  *           type: string
+  *         - name: data_vencimento
+  *           description: Data de vencimento do produto
+  *           in: query
+  *           required: false
+  *           type: string
+  *         - name: preco
+  *           description: Preco do produto
+  *           in: query
+  *           required: true
+  *           type: number
+  *         - name: categoria_id
+  *           description: ID de categoria
+  *           in: query
+  *           required: true
+  *           type: integer
+  *         - name: marca_id
+  *           description: ID de marca
+  *           in: query
+  *           required: true
+  *           type: integer
+  *         - name: unidade_medida_id
+  *           description: ID de unidade_medida
+  *           in: query
+  *           required: true
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Produto atualizado
+  */
+
   async update({ params, request, response }) {
     const produto = await Produto.findOrFail(params.id)
     const data = request.only(getCamposProduto())
@@ -185,13 +262,22 @@ class ProdutoController {
   }
 
   /**
-   * Delete a produto with id.
-   * DELETE produtos/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /produtos/{id}:
+  *   delete:
+  *     tags:
+  *       - Produto
+  *     summary: Exclusão de um Produto em específico
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão de um Produto pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Produto excluído
+  */
+
   async destroy({ params, request, response }) {
     const produto = await Produto.findOrFail(params.id)
     return await produto.delete();

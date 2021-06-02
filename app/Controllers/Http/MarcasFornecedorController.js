@@ -81,14 +81,22 @@ class MarcasFornecedorController {
   }
 
   /**
-   * Display a single marcas_fornecedor.
-   * GET marcas_fornecedors/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  * @swagger
+  * /marcasFornecedor/{id}:
+  *   get:
+  *     tags:
+  *       - MarcasFornecedor
+  *     summary: Listagem de uma Marca de Fornecedor específica pelo seu id
+  *     parameters:
+  *         - name: id
+  *           description: Marca de Fornecedor pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Marca de Fornecedor listada
+  */
+
   async show({ params, request, response, view }) {
     return await MarcasFornecedor.findOrFail(params.id)
   }
@@ -106,13 +114,31 @@ class MarcasFornecedorController {
   }
 
   /**
-   * Update marcas_fornecedor details.
-   * PUT or PATCH marcas_fornecedors/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /marcasFornecedor/{id}:
+  *   put:
+  *     tags:
+  *       - MarcasFornecedor
+  *     summary: Atualização de uma Marca de Fornecedor específica pelo seu id
+  *     parameters:
+  *         - name: id
+  *           description: Atualização de Marca de umFornecedor pelo id
+  *           in: path
+  *           type: integer
+  *         - name: marca_id
+  *           description: ID de marca
+  *           in: query
+  *           required: true
+  *           type: integer
+  *         - name: fornecedor_id
+  *           description: ID de fornecedor
+  *           in: query
+  *           required: true
+  *           type: integer   
+  *     responses:
+  *       200:
+  *         description: Marca de Fornecedor atualizada
+  */
   async update({ params, request, response }) {
     const marcas_fornecedor = await MarcasFornecedor.findOrFail(params.id)
     const data = request.only(getCamposMarcasFornecedor())
@@ -124,13 +150,22 @@ class MarcasFornecedorController {
   }
 
   /**
-   * Delete a marcas_fornecedor with id.
-   * DELETE marcas_fornecedors/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  * @swagger
+  * /marcasFornecedor/{id}:
+  *   delete:
+  *     tags:
+  *       - MarcasFornecedor
+  *     summary: Exclusão de uma Marca de Fornecedor específica pelo seu id
+  *     parameters:
+  *         - name: id
+  *           description: Exclusão de Marca de Fornecedor pelo id
+  *           in: path
+  *           type: integer
+  *     responses:
+  *       200:
+  *         description: Marca de Fornecedor excluída
+  */
+
   async destroy({ params, request, response }) {
     const marcas_fornecedor = await MarcasFornecedor.findOrFail(params.id)
     return await marcas_fornecedor.delete();
