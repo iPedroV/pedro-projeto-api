@@ -18,6 +18,14 @@ module.exports = {
         title: 'Adonis 💘 Pedro',
         version: '1.0.2',
       },
+
+      securitySchemes: {
+        bearerAuth: {
+           type: 'http',
+           scheme: 'bearer',
+           bearerFormat: 'JWT'
+        }
+       },
   
       basePath: '/',
 
@@ -27,7 +35,23 @@ module.exports = {
           description: 'ApiKey description',
           name: 'Authorization'
         },
-
+        bearerAuth: {
+          type: 'apiKey',
+          in: 'header',
+          name: 'Authorization'
+       },
+       "paths": {
+        "/skills": {
+          "put": {
+            "security": [
+               {
+                  "bearerAuth": []
+               }
+            ],
+         }   
+        }  
+      },
+       
         // OAuth2 configuration
         OAuth2: {
           authorizationUrl: 'https://example.com/oauth/authorize',
